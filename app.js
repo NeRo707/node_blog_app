@@ -2,12 +2,15 @@ const express = require('express');
 const { default: mongoose } = require('mongoose');
 const morgan = require('morgan');
 const blogRoutes = require('./routes/blogRoutes');
+const env = require('dotenv').config();
 
 
 //express app
 const app = express();
+
 //your Database URI goes here
-const dbURI = 'type your database URI';
+const dbURI = process.env.MONGO_URI;
+
 mongoose.set("strictQuery", false);
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
 .then((result) => {app.listen(3000); console.log('connected to db')})
